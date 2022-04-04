@@ -4,12 +4,26 @@ import Grid from '@mui/material/Grid';
 import Products from './Products.json'
 import { useState } from "react";
 import { IProduct } from './ProductType'
+import './ProductStyles.css';
+// import { makeStyles } from '@mui/styles';
+// import { makeStyles } from '@mui/styles/makeStyles';
+
+//legacy code not working will use emotion for the time being
+// const useStyles = makeStyles({
+//     root: {
+//         borderRadius: 12,
+//         backgroundColor: "blue"
+//     },
+//     grid: {
+//         minHeight: 341,
+//         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
+//     },
+// });
 
 export const FilterableProductTable = () => {
-    console.log('products=> ', Products)
+    // const classes = useStyles(); //legacy code
     const [prod, setProducts] = useState<IProduct[]>(Products)
     const [searchWord, setSearchWord] = useState('')
-    console.log('prod in filter=> ', prod)
 
     const matchSearchWordWithProducts = (searchWord: string) => {
         let searchResult: IProduct[] = []
@@ -28,13 +42,19 @@ export const FilterableProductTable = () => {
 
         setSearchWord(searchWord)
         setProducts(matchSearchWordWithProducts(searchWord))
+
+        if (searchWord === '') {
+            setProducts(Products)
+        }
     }
     return (
         <Grid
+            item
             container
             direction="column"
-            justifyContent="center"
             alignItems="center"
+            className='filterableGrid'
+        // className={classes.grid}  //legacy code
         >
             <Grid item>
                 <SearchBar onSearchChange={onSearchChange} searchTerm={searchWord} />
