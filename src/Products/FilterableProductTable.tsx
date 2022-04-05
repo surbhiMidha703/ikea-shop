@@ -22,31 +22,55 @@ import './ProductStyles.css';
 
 export const FilterableProductTable = () => {
     // const classes = useStyles(); //legacy code
+
     const [prod, setProducts] = useState<IProduct[]>(Products)
     const [searchWord, setSearchWord] = useState('')
+    const [checked, setChecked] = useState(false)
 
-    const matchSearchWordWithProducts = (searchWord: string) => {
-        let searchResult: IProduct[] = []
-
-        prod.map((product) => {
+    const matchSearchWordWithProducts = (searchWord: string, productParam: IProduct[]) => {
+        return productParam.filter((product) => {
             if (product?.name?.toLowerCase().includes(searchWord.toLowerCase()))
-                searchResult.push(product)
+                return product
         })
+    }
 
-        return searchResult
+    const setInStockProducts = (productsParam: IProduct[]) => {
+        return productsParam.filter((product) => {
+            if (product?.stocked) {
+                return product
+            }
+        })
     }
 
     const onSearchChange = (searchWord: string) => {
         // prod state will be set as per the search term (api call or string match from json)
         // call a function here
-
-        setSearchWord(searchWord)
-        setProducts(matchSearchWordWithProducts(searchWord))
-
-        if (searchWord === '') {
+        if (searchWord !== '') {
+            if (checked) {
+                setProducts(setInStockProducts(Products))
+            }
+            setSearchWord(searchWord)
+            setProducts(matchSearchWordWithProducts(searchWord, prod))
+        } else if ((searchWord === '') && (!checked)) {
+            setSearchWord('')
             setProducts(Products)
+        } else if ((searchWord === '') && (checked)) {
+            setSearchWord('')
+            setProducts(setInStockProducts(Products))
         }
     }
+
+    const onCheckBoxChange = (checked: boolean) => {
+        setChecked(checked)
+        if (checked) {
+            setProducts(setInStockProducts(prod))
+        } else if ((searchWord === '') && (!checked)) {
+            setProducts(Products)
+        } else if ((searchWord !== '') && (!checked)) {
+            setProducts(matchSearchWordWithProducts(searchWord, Products))
+        }
+    }
+
     return (
         <Grid
             item
@@ -57,7 +81,7 @@ export const FilterableProductTable = () => {
         // className={classes.grid}  //legacy code
         >
             <Grid item>
-                <SearchBar onSearchChange={onSearchChange} searchTerm={searchWord} />
+                <SearchBar onSearchChange={onSearchChange} searchTerm={searchWord} onCheckBoxChange={onCheckBoxChange} />
                 <ProductTable products={prod} />
             </Grid>
         </Grid>

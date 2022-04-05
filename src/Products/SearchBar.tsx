@@ -7,12 +7,17 @@ import { FC } from 'react';
 interface ISearchBar {
     onSearchChange: (val: string) => void,
     searchTerm: string,
+    onCheckBoxChange: (val: boolean) => void,
 }
 
-export const SearchBar: FC<ISearchBar> = ({ onSearchChange, searchTerm }): JSX.Element => {
+export const SearchBar: FC<ISearchBar> = ({ onSearchChange, searchTerm, onCheckBoxChange }): JSX.Element => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         onSearchChange(e.target.value)
+    }
+
+    const onCheckBoxClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onCheckBoxChange(e.target.checked)
     }
 
     return (
@@ -30,7 +35,7 @@ export const SearchBar: FC<ISearchBar> = ({ onSearchChange, searchTerm }): JSX.E
                 fullWidth
             />
             <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                control={<Checkbox value="allowExtraEmails" color="primary" onChange={onCheckBoxClick} />}
                 label="Only show products in stock"
             />
         </Grid>

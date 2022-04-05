@@ -6,7 +6,6 @@ interface IProductRow {
     item: IProduct
 }
 export const ProductRow: FC<IProductRow> = ({ item }): JSX.Element => {
-    console.log('items=>', item)
     return (
         <>
             <Grid container item mb={1} justifyContent='space-between'>
