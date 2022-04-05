@@ -5,23 +5,16 @@ import Products from './Products.json'
 import { useState } from "react";
 import { IProduct } from './ProductType'
 import './ProductStyles.css';
-// import { makeStyles } from '@mui/styles';
-// import { makeStyles } from '@mui/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 
-//legacy code not working will use emotion for the time being
-// const useStyles = makeStyles({
-//     root: {
-//         borderRadius: 12,
-//         backgroundColor: "blue"
-//     },
-//     grid: {
-//         minHeight: 341,
-//         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)'
-//     },
-// });
+const useStyles = makeStyles({
+    grid: {
+        minHeight: 341,
+    },
+});
 
 export const FilterableProductTable = () => {
-    // const classes = useStyles(); //legacy code
+    const classes = useStyles(); //legacy code
 
     const [prod, setProducts] = useState<IProduct[]>(Products)
     const [searchWord, setSearchWord] = useState('')
@@ -77,8 +70,7 @@ export const FilterableProductTable = () => {
             container
             direction="column"
             alignItems="center"
-            className='filterableGrid'
-        // className={classes.grid}  //legacy code
+            className={classes.grid}
         >
             <Grid item>
                 <SearchBar onSearchChange={onSearchChange} searchTerm={searchWord} onCheckBoxChange={onCheckBoxChange} />
