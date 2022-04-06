@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     grid: {
-        minHeight: 341,
+        minHeight: '60%',
     },
 });
 
