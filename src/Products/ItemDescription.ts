@@ -18,17 +18,17 @@ For most people, the iPod touch is not worth buying in 2021. While the $199 entr
 //iphone5
 export const iPhone5 = ` It's not going to "shut down". You're not going to get a new 5S from anywhere; they haven't been produced in years. You will find that the 5s will run fewer and fewer apps because it cannot run the most up-to-date software.`
 
-//nexus7About 
+//nexus7About
 export const Nexus7 = `
 It is currently the only major supported operating system for the device, as Android 6.0.1 (the last version of Android that Google supplied the system with) has not received security patches since September 2018.`
 
 export const productArr: string[] = [Football, Basketball, Baseball, iPhone5, iPodTouch, Nexus7]
 
 export const productInfo = {
-    Football: Football,
-    Baseball: Baseball,
-    Basketball: Basketball,
-    iPodTouch: iPhone5,
-    iPhone5: iPhone5,
-    Nexus7: Nexus7,
+  Football: Football,
+  Baseball: Baseball,
+  Basketball: Basketball,
+  iPodTouch: iPhone5,
+  iPhone5: iPhone5,
+  Nexus7: Nexus7
 }
