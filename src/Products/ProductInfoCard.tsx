@@ -46,7 +46,7 @@ export const ProductInfoCard: FC<IProductInfoCard> = ({ productInfo }): JSX.Elem
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            SR
           </Avatar>
         }
         action={
@@ -54,8 +54,8 @@ export const ProductInfoCard: FC<IProductInfoCard> = ({ productInfo }): JSX.Elem
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title="My Heart"
+        subheader="November 23, 2021"
       />
       <CardMedia component="img" height="194" image="../src/assets/football.jpg" alt="Football" />
       <CardContent>
