@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useState } from 'react'
 import { displayProductInfo } from './utils'
 import Paper from '@material-ui/core/Paper'
+import { ProductInfoCard } from './ProductInfoCard'
 
 interface IProductRow {
   item: IProduct
@@ -14,7 +15,7 @@ interface IProductRow {
 
 const useStyles = makeStyles({
   list: {
-    width: 250
+    width: 300
   },
   button: {
     textTransform: 'lowercase'
@@ -39,13 +40,8 @@ export const ProductRow: FC<IProductRow> = ({ item }): JSX.Element => {
 
   const list = (itemName: string) => {
     return (
-      <Grid
-        className={classes.list}
-        role="presentation"
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}
-      >
-        <Paper>{displayProductInfo(itemName)}</Paper>
+      <Grid className={classes.list} role="presentation">
+        <ProductInfoCard productInfo={displayProductInfo(itemName)}></ProductInfoCard>
       </Grid>
     )
   }
