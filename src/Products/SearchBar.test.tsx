@@ -6,11 +6,10 @@ const onCheckBoxChange = jest.fn()
 test('SearchBar and checkbox tests',() => {
     render(<SearchBar onSearchChange={onSearchChange} searchTerm={'foo'} onCheckBoxChange={onCheckBoxChange}/>)
     const searchBar = screen.getByLabelText('Search...')
-    fireEvent.click(searchBar)
     screen.findByText('foo')
     
-    screen.getByText(/only show products in stock/i)
-    const checkbox = screen.getByRole('checkbox', {  name: /only show products in stock/i})
+    //checkbox
+    const checkbox = screen.getByRole('checkbox', {  name: /only show products in stock/i}) as HTMLInputElement
     fireEvent.click(checkbox)
     expect(checkbox.checked).toEqual(true)
 })
