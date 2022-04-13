@@ -6,7 +6,7 @@ interface IProductCategoryRow {
 }
 export const ProductCategoryRow: FC<IProductCategoryRow> = ({ productCategory }): JSX.Element => {
   return (
-    <Grid item>
+    <Grid item data-testid='product-category'>
       <Typography variant="body1" color="text.secondary">
         {productCategory}
       </Typography>

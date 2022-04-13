@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import { ProductCategoryRow } from './ProductCategoryRow'
 import { ProductRow } from './ProductRow'
 import { IProduct } from './ProductType'
@@ -46,7 +46,7 @@ export const ProductTable: FC<IProductTable> = ({ products }): JSX.Element => {
           </Typography>
         </Grid>
       </Grid>
-      <Grid item container direction="column">
+      <Grid item container direction="column" data-testid="products">
         {productInfo}
       </Grid>
     </>

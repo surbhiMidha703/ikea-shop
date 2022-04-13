@@ -53,6 +53,7 @@ export const ProductRow: FC<IProductRow> = ({ item }): JSX.Element => {
           disableRipple
           color="primary"
           className={classes.button}
+          data-testid='product-row'
         >
           {item.name}
         </Button>
