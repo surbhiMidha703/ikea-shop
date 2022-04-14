@@ -6,8 +6,13 @@ import reportWebVitals from './reportWebVitals'
 import { ThemeProvider } from '@mui/material/styles'
 import { createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
+import { worker } from './mocks/browser'
 
 const theme = createTheme()
+
+if (process.env.NODE_ENV === 'development') {
+  worker.start()
+}
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

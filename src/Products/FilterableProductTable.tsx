@@ -2,7 +2,7 @@ import { ProductTable } from './ProductTable'
 import { SearchBar } from './SearchBar'
 import Grid from '@mui/material/Grid'
 import Products from './Products.json'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { IProduct } from './ProductType'
 import './ProductStyles.css'
 import { makeStyles } from '@material-ui/core/styles'
@@ -18,9 +18,17 @@ const useStyles = makeStyles({
 export const FilterableProductTable = () => {
   const classes = useStyles() //legacy code
 
-  const [prod, setProducts] = useState<IProduct[]>(Products)
+  const [prod, setProducts] = useState<IProduct[]>([])
   const [searchWord, setSearchWord] = useState('')
   const [checked, setChecked] = useState(false)
+
+  useEffect(() => {
+    ;(async () => {
+      const response = await fetch('/products')
+      const products = await response.json()
+      setProducts(products)
+    })()
+  }, [])
 
   const matchSearchWordWithProducts = (searchWord: string, productParam: IProduct[]) => {
     return productParam.filter((product) => {
