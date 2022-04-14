@@ -13,6 +13,8 @@ const useStyles = makeStyles({
   }
 })
 
+// can use api here to fetch products
+
 export const FilterableProductTable = () => {
   const classes = useStyles() //legacy code
 
