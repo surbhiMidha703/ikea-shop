@@ -31,7 +31,7 @@ const ExpandMore = styled((props: IExpandMoreProps) => {
 }))
 
 interface IProductInfoCard {
-  productInfo: string
+  productInfo?: string
 }
 
 export const ProductInfoCard: FC<IProductInfoCard> = ({ productInfo }): JSX.Element => {

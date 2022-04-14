@@ -24,7 +24,16 @@ It is currently the only major supported operating system for the device, as And
 
 export const productArr: string[] = [Football, Basketball, Baseball, iPhone5, iPodTouch, Nexus7]
 
-export const productInfo = {
+interface IProductInfo {
+  Football: string
+  Baseball: string
+  Basketball: string
+  iPodTouch: string
+  iPhone5: string
+  Nexus7: string
+}
+
+export const productInfo: IProductInfo = {
   Football: Football,
   Baseball: Baseball,
   Basketball: Basketball,

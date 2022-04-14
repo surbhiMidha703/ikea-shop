@@ -6,7 +6,6 @@ import Drawer from '@material-ui/core/Drawer'
 import { makeStyles } from '@material-ui/core/styles'
 import { useState } from 'react'
 import { displayProductInfo } from './utils'
-import Paper from '@material-ui/core/Paper'
 import { ProductInfoCard } from './ProductInfoCard'
 
 interface IProductRow {
@@ -38,7 +37,7 @@ export const ProductRow: FC<IProductRow> = ({ item }): JSX.Element => {
     setLeftDrawer(open)
   }
 
-  const list = (itemName: string) => {
+  const list = (itemName?: string) => {
     return (
       <Grid className={classes.list} role="presentation">
         <ProductInfoCard productInfo={displayProductInfo(itemName)}></ProductInfoCard>
@@ -53,14 +52,24 @@ export const ProductRow: FC<IProductRow> = ({ item }): JSX.Element => {
           disableRipple
           color="primary"
           className={classes.button}
-          data-testid='product-row'
+          data-testid="product-row"
         >
           {item.name}
         </Button>
-        <Button onClick={toggleDrawer(true)} disableRipple color="primary">
+        <Button
+          onClick={toggleDrawer(true)}
+          disableRipple
+          color="primary"
+          data-testid="product-row-price"
+        >
           {item.price}
         </Button>
-        <Drawer anchor={'left'} open={leftDrawer} onClose={toggleDrawer(false)}>
+        <Drawer
+          anchor={'left'}
+          open={leftDrawer}
+          onClose={toggleDrawer(false)}
+          data-testid="drawer"
+        >
           {list(item.name)}
         </Drawer>
       </Grid>

@@ -9,9 +9,9 @@ interface IProductTable {
 }
 
 export const ProductTable: FC<IProductTable> = ({ products }): JSX.Element => {
-  let category = ''
+  let category: string | undefined = ''
 
-  const notDuplicateCategory = (cat: string) => {
+  const notDuplicateCategory = (cat?: string) => {
     if (cat !== category) {
       category = cat
       return true
