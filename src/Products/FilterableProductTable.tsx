@@ -22,7 +22,19 @@ export const FilterableProductTable = () => {
   const [searchWord, setSearchWord] = useState('')
   const [checked, setChecked] = useState(false)
 
+  const pushPageViewToDataLayer = () => {
+    window.dataLayer.push({
+      event: 'pageview', // the event here corresponds to the 'event name' setup in the trigger, triggers listen to the event, then tag is fired
+      page: {
+        // these are variables (page.url, page.title)
+        url: '/',
+        title: 'Home page'
+      }
+    })
+  }
+
   useEffect(() => {
+    pushPageViewToDataLayer()
     ;(async () => {
       const response = await fetch('/products')
       const products = await response.json()

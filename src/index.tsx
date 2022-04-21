@@ -7,6 +7,13 @@ import { ThemeProvider } from '@mui/material/styles'
 import { createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { worker } from './mocks/browser'
+import TagManager from 'react-gtm-module'
+
+const tagManagerArgs = {
+  gtmId: 'GTM-N7LTGN7'
+}
+
+TagManager.initialize(tagManagerArgs)
 
 const theme = createTheme()
 
