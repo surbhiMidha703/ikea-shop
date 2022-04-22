@@ -11,6 +11,4 @@ test('check that out of stock products dissappear when checkbox is checked', asy
   expect(screen.queryByText(/iphone 5/i)).not.toBeInTheDocument
 
   expect(screen.getByText('Football')).toBeInTheDocument
-
-  screen.debug(screen.getByTestId('products'))
 })

@@ -25,17 +25,36 @@ export const ProductRow: FC<IProductRow> = ({ item }): JSX.Element => {
   const classes = useStyles()
   const [leftDrawer, setLeftDrawer] = useState(false)
 
-  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    if (
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' ||
-        (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return
+  const captureProductNameClick = (itemName?: string) => {
+    console.log('hello capture')
+    if (window && window.dataLayer) {
+      window.dataLayer.push({
+        event: 'productNameClick', // the event here corresponds to the 'event name' setup in the trigger, triggers listen to the event, then tag is fired
+        page: {
+          // these are variables (page.url, page.title)
+          url: '/'
+        },
+        props: {
+          name: itemName // this is also variable under props
+        }
+      })
     }
-
-    setLeftDrawer(open)
   }
+
+  const toggleDrawer =
+    (open: boolean, itemName?: string) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      console.log('I am called! with open=> ', open)
+      if (
+        event.type === 'keydown' &&
+        ((event as React.KeyboardEvent).key === 'Tab' ||
+          (event as React.KeyboardEvent).key === 'Shift')
+      ) {
+        return
+      }
+
+      setLeftDrawer(open)
+      captureProductNameClick(itemName)
+    }
 
   const list = (itemName?: string) => {
     return (
@@ -48,7 +67,7 @@ export const ProductRow: FC<IProductRow> = ({ item }): JSX.Element => {
     <>
       <Grid container item mb={1} justifyContent="space-between">
         <Button
-          onClick={toggleDrawer(true)}
+          onClick={toggleDrawer(true, item.name)}
           disableRipple
           color="primary"
           className={classes.button}
@@ -57,7 +76,7 @@ export const ProductRow: FC<IProductRow> = ({ item }): JSX.Element => {
           {item.name}
         </Button>
         <Button
-          onClick={toggleDrawer(true)}
+          onClick={toggleDrawer(true, item.name)}
           disableRipple
           color="primary"
           data-testid="product-row-price"
