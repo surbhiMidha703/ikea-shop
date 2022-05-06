@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { IProduct } from './ProductType'
 import './ProductStyles.css'
 import { makeStyles } from '@material-ui/core/styles'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
   grid: {
@@ -97,6 +98,8 @@ export const FilterableProductTable = () => {
         />
         <ProductTable products={prod} />
       </Grid>
+      <Link to="/category">Add Category</Link>
     </Grid>
+    // add a <Link> for path to AddCategory component
   )
 }

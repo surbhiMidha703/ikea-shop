@@ -8,6 +8,9 @@ import { createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { worker } from './mocks/browser'
 import TagManager from 'react-gtm-module'
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
+import { AddCategory } from './Products/AddCategory'
+import { NotFound } from './Products/NotFound'
 
 const tagManagerArgs = {
   gtmId: 'GTM-N7LTGN7'
@@ -25,7 +28,13 @@ ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <React.StrictMode>
-      <FilterableProductTable />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<FilterableProductTable />} />
+          <Route path="/category" element={<AddCategory />} />
+          <Route element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </React.StrictMode>
     ,
   </ThemeProvider>,
