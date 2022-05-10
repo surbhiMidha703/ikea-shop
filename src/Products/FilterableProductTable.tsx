@@ -7,6 +7,7 @@ import { IProduct } from './ProductType'
 import './ProductStyles.css'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
+import { useGlobalState } from '../config/globalState'
 
 const useStyles = makeStyles({
   grid: {
@@ -19,7 +20,8 @@ const useStyles = makeStyles({
 export const FilterableProductTable = () => {
   const classes = useStyles() //legacy code
 
-  const [prod, setProducts] = useState<IProduct[]>([])
+  const { store, dispatch } = useGlobalState()
+  const { prod } = store
   const [searchWord, setSearchWord] = useState('')
   const [checked, setChecked] = useState(false)
 
@@ -41,7 +43,10 @@ export const FilterableProductTable = () => {
     ;(async () => {
       const response = await fetch('/products')
       const products = await response.json()
-      setProducts(products)
+      dispatch({
+        type: 'setProductsFromApiRes',
+        data: products
+      })
     })()
   }, [])
 
@@ -64,30 +69,52 @@ export const FilterableProductTable = () => {
     // call a function here
     if (searchWord !== '') {
       if (checked) {
-        setProducts(setInStockProducts(Products))
+        // this will might cause problem as the json data is as it is
+        dispatch({
+          type: 'setProductsFromApiRes',
+          data: setInStockProducts(Products)
+        })
       }
       setSearchWord(searchWord)
-      setProducts(matchSearchWordWithProducts(searchWord, prod))
+      dispatch({
+        type: 'setProductsFromApiRes',
+        data: matchSearchWordWithProducts(searchWord, prod)
+      })
     } else if (searchWord === '' && !checked) {
       setSearchWord('')
-      setProducts(Products)
+      dispatch({
+        type: 'setProductsFromApiRes',
+        data: Products
+      })
     } else if (searchWord === '' && checked) {
       setSearchWord('')
-      setProducts(setInStockProducts(Products))
+      dispatch({
+        type: 'setProductsFromApiRes',
+        data: setInStockProducts(Products)
+      })
     }
   }
 
   const onCheckBoxChange = (checked: boolean) => {
     setChecked(checked)
     if (checked) {
-      setProducts(setInStockProducts(prod))
+      dispatch({
+        type: 'setProductsFromApiRes',
+        data: setInStockProducts(prod)
+      })
     } else if (searchWord === '' && !checked) {
-      setProducts(Products)
+      dispatch({
+        type: 'setProductsFromApiRes',
+        data: Products
+      })
     } else if (searchWord !== '' && !checked) {
-      setProducts(matchSearchWordWithProducts(searchWord, Products))
+      dispatch({
+        type: 'setProductsFromApiRes',
+        data: matchSearchWordWithProducts(searchWord, Products)
+      })
     }
   }
-
+  console.log('prod=> ', prod)
   return (
     <Grid item container direction="column" alignItems="center" className={classes.grid}>
       <Grid item>
@@ -100,6 +127,5 @@ export const FilterableProductTable = () => {
       </Grid>
       <Link to="/category">Add Category</Link>
     </Grid>
-    // add a <Link> for path to AddCategory component
   )
 }
