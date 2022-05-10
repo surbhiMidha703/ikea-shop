@@ -41,12 +41,14 @@ export const FilterableProductTable = () => {
   useEffect(() => {
     pushPageViewToDataLayer()
     ;(async () => {
-      const response = await fetch('/products')
-      const products = await response.json()
-      dispatch({
-        type: 'setProductsFromApiRes',
-        data: products
-      })
+      if (prod.length === 0) {  // only call api once when the prod global state is empty
+        const response = await fetch('/products')
+        const products = await response.json()
+        dispatch({
+          type: 'setProductsFromApiRes',
+          data: products
+        })
+      }
     })()
   }, [])
 
@@ -114,7 +116,7 @@ export const FilterableProductTable = () => {
       })
     }
   }
-  console.log('prod=> ', prod)
+
   return (
     <Grid item container direction="column" alignItems="center" className={classes.grid}>
       <Grid item>
