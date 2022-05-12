@@ -1,6 +1,5 @@
 import { ProductTable } from './ProductTable'
 import { SearchBar } from './SearchBar'
-import Grid from '@mui/material/Grid'
 import Products from './Products.json'
 import { useState, useEffect } from 'react'
 import { IProduct } from './ProductType'
@@ -8,10 +7,18 @@ import './ProductStyles.css'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 import { useGlobalState } from '../config/globalState'
+import { Typography, Grid } from '@mui/material'
 
 const useStyles = makeStyles({
   grid: {
     minHeight: '60%'
+  },
+  addCategory: {
+    textDecoration: 'none',
+    padding: '10px',
+    '&:hover': {
+      backgroundColor: 'pink'
+    }
   }
 })
 
@@ -41,7 +48,8 @@ export const FilterableProductTable = () => {
   useEffect(() => {
     pushPageViewToDataLayer()
     ;(async () => {
-      if (prod.length === 0) {  // only call api once when the prod global state is empty
+      // only call api once when the prod global state is empty
+      if (prod.length === 0) {
         const response = await fetch('/products')
         const products = await response.json()
         dispatch({
@@ -51,6 +59,8 @@ export const FilterableProductTable = () => {
       }
     })()
   }, [])
+
+  // const addNewProductCategory = () => {}
 
   const matchSearchWordWithProducts = (searchWord: string, productParam: IProduct[]) => {
     return productParam.filter((product) => {
@@ -127,7 +137,11 @@ export const FilterableProductTable = () => {
         />
         <ProductTable products={prod} />
       </Grid>
-      <Link to="/category">Add Category</Link>
+      <Grid>
+        <Link to="/category" className={classes.addCategory}>
+          <Typography variant="overline">Add Category</Typography>
+        </Link>
+      </Grid>
     </Grid>
   )
 }
