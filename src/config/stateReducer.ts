@@ -6,6 +6,11 @@ export const stateReducer = (state: any, action: { type: any; data: any }) => {
         prod: action.data
       }
     }
+    case 'addProduct': {
+      return {
+        prod: action.data
+      }
+    }
     default:
       return state
   }

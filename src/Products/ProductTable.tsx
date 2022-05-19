@@ -20,7 +20,7 @@ export const ProductTable: FC<IProductTable> = ({ products }): JSX.Element => {
     }
   }
 
-  const productInfo = products.map((product) => (
+  const productInfo = products?.map((product) => (
     <>
       {notDuplicateCategory(product.category) && (
         <Grid item container justifyContent="center">

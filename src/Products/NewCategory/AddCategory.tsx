@@ -11,8 +11,9 @@ import {
 
 import { CustomTextField } from './CustomTextField'
 import { History } from 'history'
-import { FC, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { FC, useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useGlobalState } from '../../config/globalState'
 
 type Values = {
   productName: string
@@ -20,7 +21,7 @@ type Values = {
   productType: string
   productStock: boolean
 }
-// export const AddCategory: FC<IAddCategory> = ({history}): JSX.Element => {
+
 export const AddCategory = (): JSX.Element => {
   // save the category to an array which should be added to the list of all the sports or phone category
   // add a function to save the category then redirect to the index page using Router.push, no need to use withRouter as this
@@ -33,6 +34,7 @@ export const AddCategory = (): JSX.Element => {
     productStock: true
   })
   const navigate = useNavigate()
+  const { store, dispatch } = useGlobalState()
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [event.target.name]: event.target.value })
@@ -40,11 +42,33 @@ export const AddCategory = (): JSX.Element => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log('hello I am called')
+
+    const response = fetch('/addProduct', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: values.productName,
+        price: values.productPrice,
+        stocked: values.productStock,
+        category: values.productType
+      }) // body data type must match "Content-Type" header
+    })
+
+    dispatch({
+      type: 'addProduct',
+      data: [
+        ...store.prod,
+        {
+          category: values.productType,
+          price: values.productPrice,
+          stocked: values.productStock,
+          name: values.productName
+        }
+      ]
+    })
+    // }
     navigate('/')
-    // return history.push('/')
-    // return states here may be call a function that is defined in filterableproducttable
-    // to add the json object to the list of api response
+    // }
+    // call api to set the prod value in DB(here just a json file)
   }
 
   return (
@@ -75,12 +99,12 @@ export const AddCategory = (): JSX.Element => {
                 row
               >
                 <FormControlLabel
-                  value="sporting"
+                  value="Sporting Goods"
                   control={<Radio size="small" />}
                   label="Sporting"
                 />
                 <FormControlLabel
-                  value="electronics"
+                  value="Electronics"
                   control={<Radio size="small" />}
                   label="Electronics"
                 />

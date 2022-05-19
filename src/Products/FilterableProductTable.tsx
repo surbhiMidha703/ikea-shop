@@ -50,6 +50,7 @@ export const FilterableProductTable = () => {
     ;(async () => {
       // only call api once when the prod global state is empty
       if (prod.length === 0) {
+        //may be check local storage here, but its messy now as context api is also used
         const response = await fetch('/products')
         const products = await response.json()
         dispatch({
@@ -59,8 +60,6 @@ export const FilterableProductTable = () => {
       }
     })()
   }, [])
-
-  // const addNewProductCategory = () => {}
 
   const matchSearchWordWithProducts = (searchWord: string, productParam: IProduct[]) => {
     return productParam.filter((product) => {
@@ -138,7 +137,13 @@ export const FilterableProductTable = () => {
         <ProductTable products={prod} />
       </Grid>
       <Grid>
-        <Link to="/category" className={classes.addCategory}>
+        <Link
+          to="/category"
+          className={classes.addCategory}
+          // state={addNewProductCategory()}
+          // state={{ addNewProductCategory: () => addNewProductCategory() }}
+          state={{ addNewProductCategory: 'addNewProductCategory' }}
+        >
           <Typography variant="overline">Add Category</Typography>
         </Link>
       </Grid>
